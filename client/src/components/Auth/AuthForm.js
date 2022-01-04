@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Redirect, useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 import {
@@ -10,6 +10,7 @@ import {
   Typography,
   Button,
   FormControl,
+  FormHelperText,
   TextField
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
@@ -25,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
   topWrapper: {
     marginBottom: "40px",
     [theme.breakpoints.up('sm')]: {
-      marginBottom: "86px",
+      marginBottom: "60px",
     }
   },
   topWrapperGrid: {
@@ -79,12 +80,19 @@ const AuthForm = (props) => {
   const classes = useStyles();
   const history = useHistory();
   const { user, register, login, isLoginPage } = props;
+  const [formErrorMessage, setFormErrorMessage] = useState({});
 
   const handleRegister = async (event) => {
     event.preventDefault();
     const username = event.target.username.value;
     const email = event.target.email.value;
     const password = event.target.password.value;
+    const confirmPassword = event.target.confirmPassword.value;
+
+    if (password !== confirmPassword) {
+      setFormErrorMessage({ confirmPassword: "Passwords must match" });
+      return;
+    }
 
     await register({ username, email, password });
   };
@@ -160,12 +168,13 @@ const AuthForm = (props) => {
             )}
             <Grid>
               <FormControl
+                error={!!formErrorMessage.confirmPassword}
                 fullWidth={true}
                 className={classes.formContent2}
               >
-                <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
+                <InputLabel htmlFor="password">Password</InputLabel>
                 <Input
-                  id="standard-adornment-password"
+                  id="password"
                   type="password"
                   name="password"
                   inputProps={{ minLength: 6 }}
@@ -175,8 +184,31 @@ const AuthForm = (props) => {
                     </InputAdornment>
                   }
                 />
+                <FormHelperText>
+                  {formErrorMessage.confirmPassword}
+                </FormHelperText>
               </FormControl>
             </Grid>
+            {!isLoginPage && (
+              <Grid>
+                <FormControl
+                  error={!!formErrorMessage.confirmPassword}
+                  fullWidth={true}
+                  className={classes.formContent2}
+                >
+                  <InputLabel htmlFor="confirmPassword">Confirm Password</InputLabel>
+                  <Input
+                    id="confirmPassword"
+                    type="password"
+                    name="confirmPassword"
+                    inputProps={{ minLength: 6 }}
+                  />
+                  <FormHelperText>
+                    {formErrorMessage.confirmPassword}
+                  </FormHelperText>
+                </FormControl>
+              </Grid>
+            )}
             <Grid className={classes.loginButtonWrapper}>
               <Button
                 type="submit"
