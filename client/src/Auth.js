@@ -16,10 +16,10 @@ const Auth = (props) => {
 
   return (
     <Grid container className={classes.heightVh}>
-      <Grid item xs={4}>
+      <Grid item xs={0} md={4}>
         <AuthImage />
       </Grid>
-      <Grid item xs={8}>
+      <Grid item xs={12} md={8}>
         <AuthForm isLoginPage={isLoginPage} />
       </Grid>
     </Grid>

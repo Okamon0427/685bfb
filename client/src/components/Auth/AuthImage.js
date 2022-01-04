@@ -8,7 +8,12 @@ const useStyles = makeStyles((theme) => ({
   backgroundImage: {
     height: "100%",
     backgroundImage: `url(${bgImg})`,
-    backgroundRepeat: "no-repeat"
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "cover",
+    display: "none",
+    [theme.breakpoints.up('md')]: {
+      display: "block",
+    },
   },
   backdrop: {
     height: "100%",

@@ -23,7 +23,13 @@ const useStyles = makeStyles((theme) => ({
     width: "100%"
   },
   topWrapper: {
-    marginBottom: "86px"
+    marginBottom: "40px",
+    [theme.breakpoints.up('sm')]: {
+      marginBottom: "86px",
+    }
+  },
+  topWrapperGrid: {
+    textAlign: "center"
   },
   changeText: {
     lineHeight: "54px",
@@ -32,13 +38,17 @@ const useStyles = makeStyles((theme) => ({
   changeButton: {
     width: "140px",
     height: "54px",
-    position: "absolute",
-    right: "42px",
-    boxShadow: "0px 4px 4px rgba(88, 133, 196, 0.15)"
+    boxShadow: "0px 4px 4px rgba(88, 133, 196, 0.15)",
+    [theme.breakpoints.up('sm')]: {
+      position: "absolute",
+      right: "42px",
+    }
   },
   formBox: {
-    marginRight: "80px",
-    marginLeft: "55px"
+    margin: "0",
+    [theme.breakpoints.up('sm')]: {
+      margin: "0 55px",
+    }
   },
   formTitle: {
     fontSize: "1.5rem",
@@ -100,16 +110,21 @@ const AuthForm = (props) => {
           justifyContent="center"
           className={classes.topWrapper}
         >
-          <Typography className={classes.changeText}>
-            {isLoginPage ? "Don't have an account?" : "Already have an account?"}
-          </Typography>
-          <Button
-            color="primary"
-            onClick={() => history.push(isLoginPage ? "/register" : "/login")}
-            className={classes.changeButton}
-          >
-            {isLoginPage ? "Create account": "Login"}
-          </Button>
+          <Grid item xs={12} sm={3}></Grid>
+          <Grid item xs={12} sm={6} className={classes.topWrapperGrid}>
+            <Typography className={classes.changeText}>
+              {isLoginPage ? "Don't have an account?" : "Already have an account?"}
+            </Typography>
+          </Grid>
+          <Grid item xs={12} sm={3} className={classes.topWrapperGrid}>
+            <Button
+              color="primary"
+              onClick={() => history.push(isLoginPage ? "/register" : "/login")}
+              className={classes.changeButton}
+            >
+              {isLoginPage ? "Create account": "Login"}
+            </Button>
+          </Grid>
         </Grid>
         <form
           onSubmit={isLoginPage ? handleLogin : handleRegister}
