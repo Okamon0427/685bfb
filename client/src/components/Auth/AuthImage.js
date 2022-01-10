@@ -19,14 +19,14 @@ const useStyles = makeStyles((theme) => ({
     height: "100%",
     background: "linear-gradient(180deg, #3A8DFF 0%, #86B9FF 100%)",
     opacity: "0.85",
-    padding: "0 1rem"
+    padding: `${theme.spacing(0)}px ${theme.spacing(2)}px`
   },
   height: {
     height: "100%"
   },
   typography: {
-    marginTop: "2rem",
-    color: "#FFFFFF",
+    marginTop: theme.spacing(4),
+    color: "white",
   },
 }));
 
