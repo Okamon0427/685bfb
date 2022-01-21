@@ -14,15 +14,13 @@ const Messages = (props) => {
         return message.senderId === userId ? (
           <SenderBubble
             key={message.id}
-            text={message.text}
-            attachments={message.attachments}
+            message={message}
             time={time}
           />
         ) : (
           <OtherUserBubble
             key={message.id}
-            text={message.text}
-            attachments={message.attachments}
+            message={message}
             time={time}
             otherUser={otherUser}
           />
