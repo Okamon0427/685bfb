@@ -1,6 +1,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box, Typography } from "@material-ui/core";
+import Images from "./Images";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -24,17 +25,18 @@ const useStyles = makeStyles(() => ({
   bubble: {
     background: "#F4F6FA",
     borderRadius: "10px 10px 0 10px"
-  }
+  },
 }));
 
 const SenderBubble = (props) => {
   const classes = useStyles();
-  const { time, text } = props;
+  const { time, message } = props;
   return (
     <Box className={classes.root}>
       <Typography className={classes.date}>{time}</Typography>
+      {message.attachments?.length > 0 && <Images attachments={message.attachments} />}
       <Box className={classes.bubble}>
-        <Typography className={classes.text}>{text}</Typography>
+        <Typography className={classes.text}>{message.text}</Typography>
       </Box>
     </Box>
   );
